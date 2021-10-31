@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Product = require('./models/product');
-const { json } = require('body-parser');
+const bodyParser = require('body-parser');
 
 const app = express();
 
