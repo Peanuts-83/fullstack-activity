@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./routes/product');
-const userRoutes = require('./routes/user');
+require('dotenv').config();   // credentials secured to .env
 
 
 const app = express();
 
 // connect MongoDB
-mongoose.connect('mongodb+srv://Peanuts-83:H9pcNdqR4VT4jhqi@peanutsmongo.17rt9.mongodb.net/fullstack-activity?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@${process.env.DB_address}?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -30,7 +30,5 @@ app.use(bodyParser.json());
 
 // Router call routes/products.js
 app.use('/api/products', routes);
-// Router call routes/user.js
-app.use('/api/users', userRoutes)
 
 module.exports = app;

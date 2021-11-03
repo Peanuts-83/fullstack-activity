@@ -1,17 +1,16 @@
 const express = require('express'),
       router = express.Router();
 const controlers = require('../controlers/routesControlers');
-const auth = require('../middleware/auth');
 
 // GET all
-router.get('/', auth, controlers.getAll);
+router.get('/', controlers.getAll);
 // GET one
-router.get('/:id', auth, controlers.getOne);
+router.get('/:id', controlers.getOne);
 // POST
-router.post('/', auth, controlers.createProduct);
+router.post('/', controlers.createProduct);
 // PUT
-router.put('/:id', auth, controlers.modifyProduct);
+router.put('/:id', controlers.modifyProduct);
 // DELETE
-router.delete('/:id', auth, controlers.delete);
+router.delete('/:id', controlers.delete);
 
 module.exports = router;
