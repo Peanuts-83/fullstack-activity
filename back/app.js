@@ -1,9 +1,20 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Product = require('./models/product');
-const bodyParser = require('body-parser');
+const routes = require('./routes/product');
+const userRoutes = require('./routes/user');
+
 
 const app = express();
+
+// connect MongoDB
+mongoose.connect('mongodb+srv://Peanuts-83:H9pcNdqR4VT4jhqi@peanutsmongo.17rt9.mongodb.net/fullstack-activity?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+    .then(() => console.log('MongoDB connected!'))
+    .catch(error => console.log('MongoDB NOT connected: ', error));
 
 // HEADERS -- CORS management
 app.use((req,res,next) => {
@@ -17,46 +28,9 @@ app.use((req,res,next) => {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// GET all
-app.get('/api/products', (req,res,next) => {
-  console.log('GETall URLreq:', req.url);
-  console.log('############');
-  Product.find()
-    .then(products => res.status(200).json({'products': products}))
-    .catch(err => res.status(400).json({ err }));
-});
-// GET one
-app.get('/api/products/:id', (req,res,next) => {
-  console.log('GETone URLreq:', req.url);
-  console.log('############');
-  Product.findOne({_id: req.params.id})
-    .then(product => res.status(200).json({'product': product}))
-    .catch(err => res.status(400).json({ err }));
-});
-// POST
-app.post('/api/products', (req,res,next) => {
-  console.log('POST URLreq:', req.url,'\nPOST BODYreq:', req.body);
-  console.log('############');
-  const product = new Product({...req.body});
-  product.save()
-    .then(product => res.status(201).json({'product': product }))
-    .catch(err => res.status(400).json({ err }));
-});
-// PUT
-app.put('/api/products/:id', (req,res,next) => {
-  console.log('PUT URLreq:', req.url,'\nPUT BODYreq:', req.body);
-  console.log('############');
-  Product.updateOne({_id: req.params.id}, {...req.body, _id: req.params.id})
-    .then(() => res.status(200).json({message: 'Modified!'}))
-    .catch(err => res.status(400).json({ err }));
-});
-// DELETE
-app.delete('/api/products/:id', (req,res,next) => {
-  console.log('DELETE URLreq:', req.url);
-  console.log('############');
-  Product.deleteOne({_id: req.params.id})
-    .then(() => res.status(200).json({message: 'Deleted!'}))
-    .catch(er=> res.status(400).json({ err }));
-});
+// Router call routes/products.js
+app.use('/api/products', routes);
+// Router call routes/user.js
+app.use('/api/users', userRoutes)
 
 module.exports = app;

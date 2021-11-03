@@ -1,15 +1,6 @@
 const http = require('http');
-const mongoose = require('mongoose');
 const app = require('./app');
 
-// connect MongoDB
-mongoose.connect('mongodb+srv://Peanuts-83:H9pcNdqR4VT4jhqi@peanutsmongo.17rt9.mongodb.net/fullstack-activity?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-    .then(() => console.log('MongoDB connected!'))
-    .catch(error => console.log('MongoDB NOT connected: ', error));
 
 // normalizePort
 const normalizePort = val => {
