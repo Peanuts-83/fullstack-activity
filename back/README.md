@@ -1,30 +1,32 @@
-<h1>Backend setup with node.js / CRUD implementation</h1>
-This is a resolved evaluation about creating a REST API using Node, Express and MongoDB. <br><br>
-Original unresolved exercice shown here: <br> <a href="https://openclassrooms.com/fr/courses/6390246-passez-au-full-stack-avec-node-js-express-et-mongodb/exercises/3732" target="blank">
-https://openclassrooms.com/fr/courses/6390246-passez-au-full-stack-avec-node-js-express-et-mongodb/exercises/3732
-</a>
+# Backend setup with node.js / CRUD implementation #
+This is a resolved evaluation about creating a REST API using Node, Express and MongoDB.
 
-<h1>Added securization for Git-repos - dotenv</h1>
-In order not to expose your confidential credentials to MongoDB, please use the <b>dotenv</b> module. <br><br>
-Reference documentation: <br>
-<a href="https://github.com/motdotla/dotenv" target="blank">
+Original unresolved exercice shown here:
+https://openclassrooms.com/fr/courses/6390246-passez-au-full-stack-avec-node-js-express-et-mongodb/exercises/3732
+
+
+## Added securization for Git-repos - dotenv ##
+In order not to expose your confidential credentials to MongoDB, please use the <b>dotenv</b> module.
+
+Reference documentation:
 https://github.com/motdotla/dotenv
-</a><br>
-<h2>An '.env' file must be set at root, containing credentials to a valid mongoDB database:</h2>
-```source.js
+
+## An '.env' file must be set at root, containing credentials to a valid mongoDB database: ##
+```
   DB_user=user_name
   DB_password=password
   DB_address=address
 ```
-<br>
-<h2>The app should import 'dotenv' package and then access '.env' credentials this way:</h2>
-<b>Credentials secured to .env: </b><br>
-```source.js
+
+## The app should import 'dotenv' package and then access '.env' credentials this way: ##
+Credentials secured to .env:
+
+```
   require('dotenv').config();
 ```
-<br><br>
-<b>Connect MongoDB:</b> <br>
-```source.js
+
+Connect MongoDB:
+```
   mongoose.connect(`mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@${process.env.DB_address}?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
